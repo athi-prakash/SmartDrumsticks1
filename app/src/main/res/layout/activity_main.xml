@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.priyagosain.smartdrumsticks.MainActivity">
+
+    <TextView
+        android:layout_width="189dp"
+        android:layout_height="29dp"
+        android:text="Select music of your choice!"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.132"
+        android:id="@+id/textView" />
+
+    <Button
+        android:id="@+id/btnBasic"
+        android:layout_width="122dp"
+        android:layout_height="48dp"
+        android:text="Basic"
+        app:layout_constraintBottom_toTopOf="@+id/btnInter"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/btnInter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Intermediate"
+        app:layout_constraintBottom_toTopOf="@+id/btnAdv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBasic" />
+
+    <Button
+        android:id="@+id/btnAdv"
+        android:layout_width="122dp"
+        android:layout_height="48dp"
+        android:clickable="?attr/isLightTheme"
+        android:text="Advanced"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnInter" />
+
+</android.support.constraint.ConstraintLayout>
