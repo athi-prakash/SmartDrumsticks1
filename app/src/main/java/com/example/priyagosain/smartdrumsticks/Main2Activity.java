@@ -28,6 +28,7 @@ public class Main2Activity extends AppCompatActivity {
 
     TextView hitText;
     static int hits;
+    String type;
     ArrayList<Integer> delay = new ArrayList<Integer>();
 
     NetworkTask networkTask= new NetworkTask(Main2Activity.this);
@@ -38,6 +39,10 @@ public class Main2Activity extends AppCompatActivity {
         hits = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        Bundle extras = getIntent().getExtras();
+        type=extras.getString("type");
+
         /*Call to start transmission*/
         networkTask.execute();
 

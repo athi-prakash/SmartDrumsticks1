@@ -25,8 +25,9 @@ public class MainActivity extends AppCompatActivity {
         {
             @Override
             public void onClick (View v){
-            Intent i = new Intent(MainActivity.this, Main2Activity.class);
-            startActivity(i);
+                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                intent.putExtra("type", "Beg");
+                startActivity(intent);
         }
         });
         // going to play drumsticks screen
@@ -34,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
         {
             @Override
             public void onClick (View v){
-            Intent i = new Intent(MainActivity.this, Main2Activity.class);
-            startActivity(i);
+                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                intent.putExtra("type", "Int");
+                startActivity(intent);
            }
         });
         // going to play drumsticks screen
@@ -43,8 +45,9 @@ public class MainActivity extends AppCompatActivity {
         {
             @Override
             public void onClick (View v){
-                Intent i = new Intent(MainActivity.this, Main2Activity.class);
-                startActivity(i);
+                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                intent.putExtra("type", "Exp");
+                startActivity(intent);
             }
         });
 

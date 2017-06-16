@@ -5,13 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 public class Main3Activity extends AppCompatActivity {
 
     Intent intent;
     int hits,beats;
-    EditText delayView;
+    TextView delayView;
     /*UI Event handler*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +22,13 @@ public class Main3Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main3);
 
         /*Fetch values passed from previous activity*/
-        Intent myIntent = getIntent(); // this is just for example purpose
         Bundle extras = getIntent().getExtras();
         ArrayList<Integer> delay = new ArrayList<Integer>();
         delay=extras.getIntegerArrayList("delay");
         hits=extras.getInt("hits");
         beats=extras.getInt("beats");
 
-        delayView = (EditText) findViewById(R.id.editDelay);
+        delayView = (TextView) findViewById(R.id.editDelay);
 
         String delayStr = new String();
         /*Loop on the number of hits*/
@@ -36,9 +37,7 @@ public class Main3Activity extends AppCompatActivity {
             /*Prints the delay in log*/
             Log.v("X1", "Delay=" + delay.get(i));
             /*Concatenate all delay to output on the screen*/
-            delayStr.concat(Integer.toString(delay.get(i)));
-            delayStr.concat("\n");
+            delayView.append(Integer.toString(delay.get(i))+'\n');
         }
-        delayView.setText(delayStr);
     }
 }
