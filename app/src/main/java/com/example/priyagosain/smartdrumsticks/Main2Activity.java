@@ -65,7 +65,7 @@ public class Main2Activity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 /*Calculate delay for the hit*/
-                delay.add((int)(new Date().getTime() - networkTask.myList[networkTask.i - 1] - networkTask.start));
+                delay.add((int)(new Date().getTime() - networkTask.rhythm.get(networkTask.i - 1) - networkTask.start));
                 hits++;
                 Log.v("Test1", "Hit=" + hits);
             }
