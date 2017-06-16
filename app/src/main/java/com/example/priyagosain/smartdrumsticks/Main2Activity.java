@@ -31,7 +31,7 @@ public class Main2Activity extends AppCompatActivity {
     String type;
     ArrayList<Integer> delay = new ArrayList<Integer>();
 
-    NetworkTask networkTask= new NetworkTask(Main2Activity.this);
+    NetworkTask networkTask;
 
     /*UI EVENT HANDLER*/
     @Override
@@ -42,8 +42,10 @@ public class Main2Activity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         type=extras.getString("type");
+        Log.v("STEP0", type);
 
         /*Call to start transmission*/
+        networkTask= new NetworkTask(Main2Activity.this);
         networkTask.execute();
 
         hitText = (TextView) findViewById(R.id.hitText);
@@ -61,7 +63,7 @@ public class Main2Activity extends AppCompatActivity {
                     /*Pass the number of correct hits, delay and total bests*/
                     intent.putIntegerArrayListExtra("delay", delay);
                     intent.putExtra("hits", hits);
-                    intent.putExtra("beats", 20);
+                    intent.putExtra("beats", networkTask.rhythm.size());
                     startActivity(intent);
                 }
                 /*Calculate delay for the hit*/

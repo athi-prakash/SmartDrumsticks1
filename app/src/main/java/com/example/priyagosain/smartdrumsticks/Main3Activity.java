@@ -29,7 +29,7 @@ public class Main3Activity extends AppCompatActivity {
         beats=extras.getInt("beats");
 
         delayView = (TextView) findViewById(R.id.editDelay);
-
+        delayView.setText("Delays\n");
         String delayStr = new String();
         /*Loop on the number of hits*/
         for (int i=0;i<hits;i++)
@@ -37,7 +37,7 @@ public class Main3Activity extends AppCompatActivity {
             /*Prints the delay in log*/
             Log.v("X1", "Delay=" + delay.get(i));
             /*Concatenate all delay to output on the screen*/
-            delayView.append(Integer.toString(delay.get(i))+'\n');
+            delayView.append(Integer.toString(delay.get(i))+"\n");
         }
     }
 }
