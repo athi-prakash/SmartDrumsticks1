@@ -18,7 +18,7 @@ import android.os.Bundle;
 public class NetworkTask extends AsyncTask<Void, byte[], Boolean> {
     static int i;
     static double start = new Date().getTime();
-    double[] myList = {10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000};
+    double[] myList = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000,11000,12000,13000,14000,15000,16000,17000,18000,19000,20000};
     Main2Activity main2Activity;
 
     NetworkTask (Main2Activity main2Activity1)
@@ -30,7 +30,8 @@ public class NetworkTask extends AsyncTask<Void, byte[], Boolean> {
         try {
             i=0;
             //IP & Port is hard coded
-            Socket socket = new Socket("134.190.187.18", 8080);
+//            Socket socket = new Socket("134.190.187.18", 8081);
+            Socket socket = new Socket("192.168.43.10", 8080);
             OutputStream outputStream = socket.getOutputStream();
             PrintStream printStream = new PrintStream(outputStream);
             //printStream.print("1");
@@ -45,7 +46,7 @@ public class NetworkTask extends AsyncTask<Void, byte[], Boolean> {
                 {
                     break;
                 }
-                }
+            }
             printStream.close();
             socket.close();
             while (new Date().getTime()-10000 == myList[i-1]) {
@@ -54,7 +55,7 @@ public class NetworkTask extends AsyncTask<Void, byte[], Boolean> {
             intent = new Intent(main2Activity, Main3Activity.class);
             intent.putIntegerArrayListExtra("myList", main2Activity.myList1);
             intent.putExtra("hits", main2Activity.hit_count);
-            intent.putExtra("beats", 10);
+            intent.putExtra("beats", 20);
             main2Activity.startActivity(intent);
         }catch(UnknownHostException e){
             System.out.println(e.toString());

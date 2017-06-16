@@ -46,11 +46,12 @@ public class Main2Activity extends AppCompatActivity {
                     intent = new Intent(Main2Activity.this, Main3Activity.class);
                     intent.putIntegerArrayListExtra("myList", myList1);
                     intent.putExtra("hits", hit_count);
-                    intent.putExtra("beats", 10);
+                    intent.putExtra("beats", 20);
                     startActivity(intent);
                 }
                 myList1.add((int)(new Date().getTime() - networkTask.myList[networkTask.i - 1] - networkTask.start));
                 hit_count++;
+                Log.v("T1", "Hit=" + hit_count);
             }
         });
     }
