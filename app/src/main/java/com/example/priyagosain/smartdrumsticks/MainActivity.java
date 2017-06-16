@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnInter;
     Button btnAdv;
 
+    /*UI EVENT HANDLER*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

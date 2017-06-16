@@ -27,31 +27,42 @@ import java.util.ArrayList;
 public class Main2Activity extends AppCompatActivity {
 
     TextView hitText;
-    static int hit_count;
-    ArrayList<Integer> myList1 = new ArrayList<Integer>();
+    static int hits;
+    ArrayList<Integer> delay = new ArrayList<Integer>();
+
     NetworkTask networkTask= new NetworkTask(Main2Activity.this);
+
+    /*UI EVENT HANDLER*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        hit_count = 0;
+        hits = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        /*Call to start transmission*/
         networkTask.execute();
+
         hitText = (TextView) findViewById(R.id.hitText);
         hitText.setOnClickListener(new View.OnClickListener() {
+
+            /*Event of hitting the drum*/
             @Override
             public void onClick(View v) {
-                if (networkTask.i>hit_count+1)
+                /*If the drum hit is not in synchronization with transmission*/
+                if (networkTask.i>hits+1)
                 {
+                    Log.v("FAIL1", "Hit=" + hits);
                     Intent intent;
                     intent = new Intent(Main2Activity.this, Main3Activity.class);
-                    intent.putIntegerArrayListExtra("myList", myList1);
-                    intent.putExtra("hits", hit_count);
+                    /*Pass the number of correct hits, delay and total bests*/
+                    intent.putIntegerArrayListExtra("delay", delay);
+                    intent.putExtra("hits", hits);
                     intent.putExtra("beats", 20);
                     startActivity(intent);
                 }
-                myList1.add((int)(new Date().getTime() - networkTask.myList[networkTask.i - 1] - networkTask.start));
-                hit_count++;
-                Log.v("T1", "Hit=" + hit_count);
+                /*Calculate delay for the hit*/
+                delay.add((int)(new Date().getTime() - networkTask.myList[networkTask.i - 1] - networkTask.start));
+                hits++;
+                Log.v("Test1", "Hit=" + hits);
             }
         });
     }

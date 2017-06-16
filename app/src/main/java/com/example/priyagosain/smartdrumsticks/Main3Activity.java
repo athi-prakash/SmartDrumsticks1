@@ -1,68 +1,44 @@
 package com.example.priyagosain.smartdrumsticks;
 
-
-
-        import android.content.Intent;
-
-        import android.support.v7.app.AppCompatActivity;
-
-        import android.os.Bundle;
-
-        import android.util.Log;
-
-        import android.widget.EditText;
-
-
-
-        import java.util.ArrayList;
-
-        import java.util.List;
-
-
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.EditText;
+import java.util.ArrayList;
 
 public class Main3Activity extends AppCompatActivity {
 
     Intent intent;
     int hits,beats;
-
-    int delay;
-
     EditText delayView;
-
+    /*UI Event handler*/
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main3);
 
-
-
+        /*Fetch values passed from previous activity*/
         Intent myIntent = getIntent(); // this is just for example purpose
-
         Bundle extras = getIntent().getExtras();
-
-        ArrayList<Integer> myList1 = new ArrayList<Integer>();
-
-        myList1=extras.getIntegerArrayList("myList");
+        ArrayList<Integer> delay = new ArrayList<Integer>();
+        delay=extras.getIntegerArrayList("delay");
         hits=extras.getInt("hits");
         beats=extras.getInt("beats");
 
-        delay = extras.getInt("delay value");
-
         delayView = (EditText) findViewById(R.id.editDelay);
 
-        delayView.setText(Integer.toString(myList1.get(0)));
-
-        String delays = new String();
+        String delayStr = new String();
+        /*Loop on the number of hits*/
         for (int i=0;i<hits;i++)
         {
-            Log.v("X1", "Delay=" + myList1.get(i));
-            delays.concat(Integer.toString(myList1.get(i)));
-            delays.concat("\n");
+            /*Prints the delay in log*/
+            Log.v("X1", "Delay=" + delay.get(i));
+            /*Concatenate all delay to output on the screen*/
+            delayStr.concat(Integer.toString(delay.get(i)));
+            delayStr.concat("\n");
         }
-        delayView.setText(Integer.toString(myList1.get(0)));
+        delayView.setText(delayStr);
     }
-
 }
