@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Smart Drumsticks</string>
+    <string name="hit_me">HIT ME!</string>
 </resources>

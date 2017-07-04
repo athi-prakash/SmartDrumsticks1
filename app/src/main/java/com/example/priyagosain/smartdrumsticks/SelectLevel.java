@@ -21,30 +21,27 @@ public class SelectLevel extends AppCompatActivity {
         btnInter = (Button) findViewById(R.id.btnInter);
         btnAdv = (Button) findViewById(R.id.btnAdv);
         // going to play drumsticks screen
-        btnBasic.setOnClickListener(new View.OnClickListener()
-        {
+        btnBasic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(SelectLevel.this, PlayDrum.class);
                 intent.putExtra("type", "Beg");
                 startActivity(intent);
-        }
+            }
         });
         // going to play drumsticks screen
-        btnInter.setOnClickListener(new View.OnClickListener()
-        {
+        btnInter.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(SelectLevel.this, PlayDrum.class);
                 intent.putExtra("type", "Int");
                 startActivity(intent);
-           }
+            }
         });
         // going to play drumsticks screen
-        btnAdv.setOnClickListener(new View.OnClickListener()
-        {
+        btnAdv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(SelectLevel.this, PlayDrum.class);
                 intent.putExtra("type", "Exp");
                 startActivity(intent);
@@ -53,5 +50,5 @@ public class SelectLevel extends AppCompatActivity {
 
     }
 
-    }
+}
 

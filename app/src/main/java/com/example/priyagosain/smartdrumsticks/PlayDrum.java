@@ -1,5 +1,6 @@
 package com.example.priyagosain.smartdrumsticks;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.util.Log;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ public class PlayDrum extends AppCompatActivity {
     static int hits;
     String type;
     ArrayList<Integer> delay = new ArrayList<Integer>();
+    ObjectAnimator bgColor;
 
     NetworkTask networkTask;
 
@@ -28,11 +30,11 @@ public class PlayDrum extends AppCompatActivity {
         setContentView(R.layout.PlayDrum);
 
         Bundle extras = getIntent().getExtras();
-        type=extras.getString("type");
+        type = extras.getString("type");
         Log.v("STEP0", type);
 
         /*Call to start transmission*/
-        networkTask= new NetworkTask(PlayDrum.this);
+        networkTask = new NetworkTask(PlayDrum.this);
         networkTask.execute();
 
         hitText = (TextView) findViewById(R.id.hitText);
@@ -42,8 +44,7 @@ public class PlayDrum extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 /*If the drum hit is not in synchronization with transmission*/
-                if (networkTask.i>hits+1)
-                {
+                if (networkTask.i > hits + 1) {
                     Log.v("FAIL1", "Hit=" + hits);
                     Intent intent;
                     intent = new Intent(PlayDrum.this, DisplayDelayResult.class);
@@ -54,7 +55,7 @@ public class PlayDrum extends AppCompatActivity {
                     startActivity(intent);
                 }
                 /*Calculate delay for the hit*/
-                delay.add((int)(new Date().getTime() - networkTask.rhythm.get(networkTask.i - 1) - networkTask.start));
+                delay.add((int) (new Date().getTime() - networkTask.rhythm.get(networkTask.i - 1) - networkTask.start));
                 hits++;
                 Log.v("Test1", "Hit=" + hits);
             }

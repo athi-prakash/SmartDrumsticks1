@@ -11,8 +11,9 @@ import java.util.ArrayList;
 public class DisplayDelayResult extends AppCompatActivity {
 
     Intent intent;
-    int hits,beats;
+    int hits, beats;
     TextView delayView;
+
     /*UI Event handler*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,20 +24,19 @@ public class DisplayDelayResult extends AppCompatActivity {
         /*Fetch values passed from previous activity*/
         Bundle extras = getIntent().getExtras();
         ArrayList<Integer> delay = new ArrayList<Integer>();
-        delay=extras.getIntegerArrayList("delay");
-        hits=extras.getInt("hits");
-        beats=extras.getInt("beats");
+        delay = extras.getIntegerArrayList("delay");
+        hits = extras.getInt("hits");
+        beats = extras.getInt("beats");
 
         delayView = (TextView) findViewById(R.id.editDelay);
         delayView.setText("Delays\n");
         String delayStr = new String();
         /*Loop on the number of hits*/
-        for (int i=0;i<hits;i++)
-        {
+        for (int i = 0; i < hits; i++) {
             /*Prints the delay in log*/
             Log.v("X1", "Delay=" + delay.get(i));
             /*Concatenate all delay to output on the screen*/
-            delayView.append(Integer.toString(delay.get(i))+"\n");
+            delayView.append(Integer.toString(delay.get(i)) + "\n");
         }
     }
 }
