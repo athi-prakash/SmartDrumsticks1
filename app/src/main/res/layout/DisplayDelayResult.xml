@@ -10,7 +10,7 @@
 
     android:layout_height="match_parent"
 
-    tools:context="com.example.priyagosain.smartdrumsticks.Main3Activity">
+    tools:context="com.example.priyagosain.smartdrumsticks.DisplayDelayResult">
 
 
 

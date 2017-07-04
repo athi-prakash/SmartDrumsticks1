@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class Main3Activity extends AppCompatActivity {
+public class DisplayDelayResult extends AppCompatActivity {
 
     Intent intent;
     int hits,beats;
@@ -19,7 +18,7 @@ public class Main3Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.DisplayDelayResult);
 
         /*Fetch values passed from previous activity*/
         Bundle extras = getIntent().getExtras();

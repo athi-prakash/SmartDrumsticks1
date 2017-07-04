@@ -1,30 +1,17 @@
 package com.example.priyagosain.smartdrumsticks;
 
-import android.os.AsyncTask;
 import android.content.Intent;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View.OnClickListener;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import java.net.Socket;
-import java.io.IOException;
-import java.net.UnknownHostException;
+
 import java.util.ArrayList;
 import java.util.Date;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.List;
-import java.util.ArrayList;
 
 
-
-public class Main2Activity extends AppCompatActivity {
+public class PlayDrum extends AppCompatActivity {
 
     TextView hitText;
     static int hits;
@@ -38,14 +25,14 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         hits = 0;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.PlayDrum);
 
         Bundle extras = getIntent().getExtras();
         type=extras.getString("type");
         Log.v("STEP0", type);
 
         /*Call to start transmission*/
-        networkTask= new NetworkTask(Main2Activity.this);
+        networkTask= new NetworkTask(PlayDrum.this);
         networkTask.execute();
 
         hitText = (TextView) findViewById(R.id.hitText);
@@ -59,7 +46,7 @@ public class Main2Activity extends AppCompatActivity {
                 {
                     Log.v("FAIL1", "Hit=" + hits);
                     Intent intent;
-                    intent = new Intent(Main2Activity.this, Main3Activity.class);
+                    intent = new Intent(PlayDrum.this, DisplayDelayResult.class);
                     /*Pass the number of correct hits, delay and total bests*/
                     intent.putIntegerArrayListExtra("delay", delay);
                     intent.putExtra("hits", hits);

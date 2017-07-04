@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
-import android.os.Bundle;
+
 import android.util.Log;
 
 /**
@@ -25,21 +25,21 @@ public class NetworkTask extends AsyncTask<Void, byte[], Boolean> {
     double[] intermidiate = {1000, 2000, 2500, 3500, 4500, 5000, 6000, 7000, 7500, 8500, 9500, 10000, 11000, 12000, 12500, 13500, 14500, 15000, 16000, 17000};
     double[] expert = {1000, 1500, 2500, 2800, 3100, 3500, 4500, 5000, 6000, 6300, 6600, 7000, 8000, 8500, 9500, 9800, 10100, 10500, 11500, 12000};
     ArrayList<Double> rhythm=new ArrayList<Double>();
-    Main2Activity main2Activity;
+    PlayDrum playDrum;
 
-    NetworkTask (Main2Activity main2Activity1)
+    NetworkTask (PlayDrum playDrum1)
     {
-        main2Activity=main2Activity1;
-        if (main2Activity.type.equals("Beg")) {
+        playDrum = playDrum1;
+        if (playDrum.type.equals("Beg")) {
             for (int i = 0; i < begginer.length; i++)
                 rhythm.add(begginer[i]);
         }
-        else if (main2Activity.type.equals("Int"))
+        else if (playDrum.type.equals("Int"))
         {
             for (int i = 0; i < intermidiate.length; i++)
                 rhythm.add(intermidiate[i]);
         }
-        else if (main2Activity.type.equals("Exp"))
+        else if (playDrum.type.equals("Exp"))
         {
             for (int i = 0; i < expert.length; i++)
                 rhythm.add(expert[i]);
@@ -69,9 +69,9 @@ public class NetworkTask extends AsyncTask<Void, byte[], Boolean> {
                     break;
                 }
                 /*Check of asynchronization or missed hits*/
-                if (i>main2Activity.hits+1)
+                if (i> playDrum.hits+1)
                 {
-                    Log.v("FAIL2", "Hit=" + i+"-"+main2Activity.hits);
+                    Log.v("FAIL2", "Hit=" + i+"-"+ playDrum.hits);
                     /*Terminate in case of async*/
                     break;
                 }
@@ -84,11 +84,11 @@ public class NetworkTask extends AsyncTask<Void, byte[], Boolean> {
             }
             /*Transfer control and pass data to next screen(final)*/
             Intent intent;
-            intent = new Intent(main2Activity, Main3Activity.class);
-            intent.putIntegerArrayListExtra("delay", main2Activity.delay);
-            intent.putExtra("hits", main2Activity.hits);
+            intent = new Intent(playDrum, DisplayDelayResult.class);
+            intent.putIntegerArrayListExtra("delay", playDrum.delay);
+            intent.putExtra("hits", playDrum.hits);
             intent.putExtra("beats", rhythm.size());
-            main2Activity.startActivity(intent);
+            playDrum.startActivity(intent);
 
         }catch(UnknownHostException e){
             System.out.println(e.toString());

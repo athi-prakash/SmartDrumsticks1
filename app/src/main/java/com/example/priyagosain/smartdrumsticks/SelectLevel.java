@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 
-public class MainActivity extends AppCompatActivity {
+public class SelectLevel extends AppCompatActivity {
     Button btnBasic;
     Button btnInter;
     Button btnAdv;
@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.SelectLevel);
         // get the buttton object
         btnBasic = (Button) findViewById(R.id.btnBasic);
         btnInter = (Button) findViewById(R.id.btnInter);
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         {
             @Override
             public void onClick (View v){
-                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                Intent intent = new Intent(SelectLevel.this, PlayDrum.class);
                 intent.putExtra("type", "Beg");
                 startActivity(intent);
         }
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         {
             @Override
             public void onClick (View v){
-                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                Intent intent = new Intent(SelectLevel.this, PlayDrum.class);
                 intent.putExtra("type", "Int");
                 startActivity(intent);
            }
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         {
             @Override
             public void onClick (View v){
-                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                Intent intent = new Intent(SelectLevel.this, PlayDrum.class);
                 intent.putExtra("type", "Exp");
                 startActivity(intent);
             }
