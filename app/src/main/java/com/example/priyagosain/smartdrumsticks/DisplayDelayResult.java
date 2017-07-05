@@ -19,7 +19,7 @@ public class DisplayDelayResult extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.DisplayDelayResult);
+        setContentView(R.layout.display_delay_result);
 
         /*Fetch values passed from previous activity*/
         Bundle extras = getIntent().getExtras();

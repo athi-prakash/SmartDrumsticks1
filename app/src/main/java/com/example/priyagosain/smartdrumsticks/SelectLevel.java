@@ -15,7 +15,7 @@ public class SelectLevel extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.SelectLevel);
+        setContentView(R.layout.select_level);
         // get the buttton object
         btnBasic = (Button) findViewById(R.id.btnBasic);
         btnInter = (Button) findViewById(R.id.btnInter);
