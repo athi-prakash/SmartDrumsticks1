@@ -5,13 +5,17 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.annotation.BoolRes;
 import android.util.Log;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -23,6 +27,7 @@ public class PlayDrum extends AppCompatActivity {
     String type;
     ArrayList<Integer> delay = new ArrayList<Integer>();
     ObjectAnimator bgColor;
+    Integer alertThreshold, responseDelay;
 
     Network network;
 
@@ -33,13 +38,17 @@ public class PlayDrum extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play_drum);
 
+        // set up variables
         Bundle extras = getIntent().getExtras();
         type = extras.getString("type");
+        alertThreshold = extras.getInt("alertThreshold");
+        responseDelay = extras.getInt("responseDelay");
         Log.v("STEP0", type);
         hitText = (TextView) findViewById(R.id.hitText);
         bgColor = ObjectAnimator.ofObject(hitText, "backgroundColor", new ArgbEvaluator(), Color.argb(255, 255, 255, 255), 0xffff0000);
-        bgColor.setDuration(3000);
-//        bgColor.start();
+//        bgColor.setDuration(alertThreshold);
+        bgColor.setDuration(1000);
+        bgColor.setStartDelay(responseDelay);
 
         /*Call to start transmission*/
         network = new Network(PlayDrum.this);
@@ -51,30 +60,35 @@ public class PlayDrum extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 /*If the drum hit is not in synchronization with transmission*/
-//                if (network.i > hits + 1) {
-//                    Log.v("FAIL1", "Hit=" + hits);
-//                    Intent intent;
-//                    intent = new Intent(PlayDrum.this, DisplayDelayResult.class);
-//                    /*Pass the number of correct hits, delay and total bests*/
-//                    intent.putIntegerArrayListExtra("delay", delay);
-//                    intent.putExtra("hits", hits);
-//                    intent.putExtra("beats", network.rhythm.size());
-//                    startActivity(intent);
-//                }
+                if (network.i > hits + 1) {
+                    Log.v("FAIL1", "Hit=" + hits);
+                    Intent intent;
+                    intent = new Intent(PlayDrum.this, DisplayDelayResult.class);
+                    /*Pass the number of correct hits, delay and total bests*/
+                    intent.putIntegerArrayListExtra("delay", delay);
+                    intent.putExtra("hits", hits);
+                    intent.putExtra("beats", network.rhythm.size());
+                    startActivity(intent);
+                }
                 /*Calculate delay for the hit*/
                 bgColor.cancel();
+                delay.add(calculateDelay(network.rhythm.get(network.i - 1), network.start));
 //                delay.add((int) (new Date().getTime() - network.rhythm.get(network.i - 1) - network.start));
-//                hits++;
-//                Log.v("Test1", "Hit=" + hits);
+                hits++;
+                Log.v("Test1", "Hit=" + hits);
             }
         });
     }
 
-    private class Network extends AsyncTask<PlayDrum, Integer, Boolean> {
+    private int calculateDelay(double rhythmTime, double startTime) {
+        return (int) (new Date().getTime() - rhythmTime - startTime - responseDelay);
+    }
+
+    private class Network extends AsyncTask<PlayDrum, Integer, PlayDrum> {
         int i;
         double start;
         /*Rhythm is represented as a sequence of number values indicating the millisec of the hit*/
-        double[] begginer = {1000, 3000, 5000, 7000, 9000, 12000};
+        double[] begginer = {1000, 3000, 5000, 7000, 9000};
         double[] intermidiate = {1000, 2000, 2500, 3500, 4500, 5000, 6000, 7000, 7500, 8500, 9500, 10000, 11000, 12000, 12500, 13500, 14500, 15000, 16000, 17000};
         double[] expert = {1000, 1500, 2500, 2800, 3100, 3500, 4500, 5000, 6000, 6300, 6600, 7000, 8000, 8500, 9500, 9800, 10100, 10500, 11500, 12000};
         ArrayList<Double> rhythm = new ArrayList<Double>();
@@ -88,22 +102,21 @@ public class PlayDrum extends AppCompatActivity {
                 case "Exp": level = expert; break;
                 default: level = begginer; break;
             }
-            for (int i = 0; i < level.length; i++)
-                rhythm.add(level[i]);
+            for (int i = 0; i < level.length; i++) rhythm.add(level[i]);
             start = new Date().getTime();
         }
 
         @Override
-        protected Boolean doInBackground(PlayDrum... playDrums) { //This runs on a different thread
+        protected PlayDrum doInBackground(PlayDrum... playDrums) { //This runs on a different thread
             boolean result = false;
-//        try {
+        try {
             i = 0;
             //IP & Port is hard coded to create socket client
-//            Socket socket = new Socket("134.190.187.18", 8080);
+            Socket socket = new Socket("134.190.187.18", 8080);
             //Socket socket = new Socket("192.168.43.10", 8080);
             /*Client is set as transmitter*/
-//            OutputStream outputStream = socket.getOutputStream();
-//            PrintStream printStream = new PrintStream(outputStream);
+            OutputStream outputStream = socket.getOutputStream();
+            PrintStream printStream = new PrintStream(outputStream);
 
             /*Loop on the rhythm*/
             while (i < rhythm.size()) {
@@ -115,42 +128,49 @@ public class PlayDrum extends AppCompatActivity {
                     break;
                 }
                 /*Check of asynchronization or missed hits*/
-//                if (i > hits + 1) {
-//                    Log.v("FAIL2", "Hit=" + i + "-" + hits);
-//                    /*Terminate in case of async*/
-//                    break;
-//                }
+                if (i > hits + 1) {
+                    Log.v("FAIL2", "Hit=" + i + "-" + hits);
+                    /*Terminate in case of async*/
+                    break;
+                }
             }
             /*Close transmission after end of transmission*/
 //            printStream.close();
 //            socket.close();
             /*Wait for 10 secs after transmission for user to end the last beat*/
-            while (new Date().getTime()-10000 == rhythm.get(i-1)) {
+            while (new Date().getTime() - 10000 > rhythm.get(i - 1)) {
             }
-            /*Transfer control and pass data to next screen(final)*/
             Intent intent;
             intent = new Intent(playDrums[0], DisplayDelayResult.class);
-//            intent.putIntegerArrayListExtra("delay", playDrums[0].delay);
-//            intent.putExtra("hits", playDrums[0].hits);
-//            intent.putExtra("beats", rhythm.size());
-//            playDrums[0].startActivity(intent);
+            intent.putIntegerArrayListExtra("delay", playDrums[0].delay);
+            intent.putExtra("hits", playDrums[0].hits);
+            intent.putExtra("beats", rhythm.size());
+            playDrums[0].startActivity(intent);
 
-//        }catch(UnknownHostException e){
-//            System.out.println(e.toString());
-//        }catch(IOException e){
-//            System.out.println(e.toString());
-//        }
-            return result;
+        }catch(UnknownHostException e){
+            System.out.println(e.toString());
+        }catch(IOException e){
+            System.out.println(e.toString());
+        }
+            return playDrums[0];
         }
 
         @Override
         protected void onProgressUpdate(Integer... progress) {
-                hitText.setText(progress[0].toString());
-                bgColor.start();
+            hitText.setText(progress[0].toString());
+            //singal has been sent, start to change color
+            bgColor.start();
         }
 
-        @Override
-        protected void onPostExecute(Boolean result){
-        }
+//        @Override
+//        protected void onPostExecute(PlayDrum result) {
+//            /*Transfer control and pass data to next screen(final)*/
+//            Intent intent;
+//            intent = new Intent(result, DisplayDelayResult.class);
+//            intent.putIntegerArrayListExtra("delay", result.delay);
+//            intent.putExtra("hits", result.hits);
+//            intent.putExtra("beats", rhythm.size());
+//            result.startActivity(intent);
+//        }
     }
 }
