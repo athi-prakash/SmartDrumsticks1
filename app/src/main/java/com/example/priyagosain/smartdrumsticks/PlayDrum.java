@@ -11,6 +11,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -119,44 +124,43 @@ public class PlayDrum extends AppCompatActivity {
         //     singnal, this stop will stop and call onPostExecute to terminate this thread.
         @Override
         protected PlayDrum doInBackground(PlayDrum... playDrums) { //This runs on a different thread
-            boolean result = false;
-//        try {
-            signals = 0;
-            //IP & Port is hard coded to create socket client
+            try {
+                signals = 0;
+                //IP & Port is hard coded to create socket client
 //            Socket socket = new Socket("134.190.187.18", 8080);
-            //Socket socket = new Socket("192.168.43.10", 8080);
+                Socket socket = new Socket("192.168.0.4", 8080);
             /*Client is set as transmitter*/
-//            OutputStream outputStream = socket.getOutputStream();
-//            PrintStream printStream = new PrintStream(outputStream);
+                OutputStream outputStream = socket.getOutputStream();
+                PrintStream printStream = new PrintStream(outputStream);
 
             /*Loop on the rhythm*/
-            while (signals < rhythm.size()) {
+                while (signals < rhythm.size()) {
                 /*Transmit a hit when the time matches with the rhythm*/
-                while (new Date().getTime() - start == rhythm.get(signals)) {
+                    while (new Date().getTime() - start == rhythm.get(signals)) {
                 /*Check of asynchronization or missed hits*/
-                    if (signals > hits + 1) {// if user have missed more that one signal
-                        Log.v("FAIL2", "Hit=" + signals + "-" + hits);
+                        if (signals > hits + 1) {// if user have missed more that one signal
+                            Log.v("FAIL2", "Hit=" + signals + "-" + hits);
                     /*Terminate in case of async*/
-                        return playDrums[0];//terminate the networkTask task and call onPostExecute to jump to other jobs
+                            return playDrums[0];//terminate the networkTask task and call onPostExecute to jump to other jobs
+                        }
+                        publishProgress(signals);
+                        signals++;
+                        printStream.print("1");
+                        break;
                     }
-                    publishProgress(signals);
-                    signals++;
-//                    printStream.print("1");
-                    break;
                 }
-            }
             /*Close transmission after end of transmission*/
-//            printStream.close();
-//            socket.close();
+                printStream.close();
+                socket.close();
             /*Wait for 10 secs after transmission for user to end the last beat*/
 //            while (new Date().getTime() - 10000 == rhythm.get(signals - 1)) {
 //            }
 
-//        }catch(UnknownHostException e){
-//            System.out.println(e.toString());
-//        }catch(IOException e){
-//            System.out.println(e.toString());
-//        }
+            } catch (UnknownHostException e) {
+                System.out.println(e.toString());
+            } catch (IOException e) {
+                System.out.println(e.toString());
+            }
             return playDrums[0];
         }
 
