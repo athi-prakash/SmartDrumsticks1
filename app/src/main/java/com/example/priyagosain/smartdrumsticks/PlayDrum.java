@@ -91,7 +91,7 @@ public class PlayDrum extends AppCompatActivity {
         int signals;
         double start;
         /*Rhythm is represented as a sequence of number values indicating the millisec of the hit*/
-        double[] begginer = {1000, 3000, 5000, 7000, 9000};
+        double[] begginer = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000};
         double[] intermidiate = {1000, 2000, 2500, 3500, 4500, 5000, 6000, 7000, 7500, 8500, 9500, 10000, 11000, 12000, 12500, 13500, 14500, 15000, 16000, 17000};
         double[] expert = {1000, 1500, 2500, 2800, 3100, 3500, 4500, 5000, 6000, 6300, 6600, 7000, 8000, 8500, 9500, 9800, 10100, 10500, 11500, 12000};
         ArrayList<Double> rhythm = new ArrayList<Double>();
