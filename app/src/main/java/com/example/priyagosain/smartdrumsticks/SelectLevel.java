@@ -24,8 +24,14 @@ public class SelectLevel extends AppCompatActivity {
         btnBasic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //receive user defined values from UserInputValues view.
+                Bundle extras = getIntent().getExtras();
+                Integer alertThreshold = (Integer)extras.get("alertThreshold");
+                Integer responseDelay = (Integer)extras.get("responseDelay");
                 Intent intent = new Intent(SelectLevel.this, PlayDrum.class);
                 intent.putExtra("type", "Beg");
+                intent.putExtra("alertThreshold", alertThreshold);
+                intent.putExtra("responseDelay", responseDelay);
                 startActivity(intent);
             }
         });
@@ -33,8 +39,14 @@ public class SelectLevel extends AppCompatActivity {
         btnInter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //receive user defined values from UserInputValues view.
+                Bundle extras = getIntent().getExtras();
+                Integer alertThreshold = (Integer)extras.get("alertThreshold");
+                Integer responseDelay = (Integer)extras.get("responseDelay");
                 Intent intent = new Intent(SelectLevel.this, PlayDrum.class);
                 intent.putExtra("type", "Int");
+                intent.putExtra("alertThreshold", alertThreshold);
+                intent.putExtra("responseDelay", responseDelay);
                 startActivity(intent);
             }
         });
@@ -42,8 +54,14 @@ public class SelectLevel extends AppCompatActivity {
         btnAdv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //receive user defined values from UserInputValues view.
+                Bundle extras = getIntent().getExtras();
+                Integer alertThreshold = (Integer)extras.get("alertThreshold");
+                Integer responseDelay = (Integer)extras.get("responseDelay");
                 Intent intent = new Intent(SelectLevel.this, PlayDrum.class);
                 intent.putExtra("type", "Exp");
+                intent.putExtra("alertThreshold", alertThreshold);
+                intent.putExtra("responseDelay", responseDelay);
                 startActivity(intent);
             }
         });

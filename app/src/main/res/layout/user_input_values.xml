@@ -8,4 +8,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/input_alert_value" />
+
+    <EditText
+        android:id="@+id/alertInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:id="@+id/responseDelayValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/input_delay_value" />
+
+    <EditText
+        android:id="@+id/delayInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/startPlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Play!" />
 </LinearLayout>
