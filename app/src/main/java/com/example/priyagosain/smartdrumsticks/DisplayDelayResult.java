@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class DisplayDelayResult extends AppCompatActivity {
 
@@ -28,8 +31,19 @@ public class DisplayDelayResult extends AppCompatActivity {
         hits = extras.getInt("hits");
         beats = extras.getInt("beats");
 
+        double maxDelay = Collections.max(delay);
+        double minDelay = Collections.min(delay);
+        double sumDelay = 0, avgDelay;
+        for (int i = 0; i < delay.size(); i++){
+            sumDelay += delay.get(i);
+        }
+        avgDelay = sumDelay/delay.size();
+
         delayView = (TextView) findViewById(R.id.editDelay);
         delayView.setText("Delays\n");
+        delayView.append("Max Delay:" + (Double.toString(maxDelay)));
+        delayView.append("Min Delay:" + (Double.toString(minDelay)));
+        delayView.append("Averagg Delay:" + (Double.toString(avgDelay)));
         String delayStr = new String();
         /*Loop on the number of hits*/
         for (int i = 0; i < hits; i++) {
