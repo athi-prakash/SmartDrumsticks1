@@ -34,12 +34,13 @@ public class UserInputValues extends AppCompatActivity {
                 Integer responseDelay = Integer.parseInt(delayInput.getText().toString());
                 // Validate the values
                 if (isValidAlterThreshold(alertThreshold) && isValidResponseDelay(responseDelay)){
-                    // If valid, pass it to the next screen
+                    // If the value is valid, pass it to the next screen
+                    // The destination of those values are PlayDeum view
                     Intent intent = new Intent(UserInputValues.this, SelectLevel.class);
                     intent.putExtra("alertThreshold", alertThreshold);
                     intent.putExtra("responseDelay", responseDelay);
                     startActivity(intent);
-                }else{// otherwise, reset values
+                }else{// otherwise, give users hints that theri values are not valid
                     alertInput.setText("");
                     alertInput.setHint("Wroing Number");
                     delayInput.setText("");

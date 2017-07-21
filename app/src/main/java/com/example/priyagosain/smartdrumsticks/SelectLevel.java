@@ -16,52 +16,71 @@ public class SelectLevel extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_level);
-        // get the buttton object
+
+        // get the button object
         btnBasic = (Button) findViewById(R.id.btnBasic);
         btnInter = (Button) findViewById(R.id.btnInter);
         btnAdv = (Button) findViewById(R.id.btnAdv);
-        // going to play drumsticks screen
+
+        // Once the user clicks this button, the app will go to play drumsticks screen with "beginner" difficulty
         btnBasic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //receive user defined values from UserInputValues view.
+                //Then, those values will be past to the next view, which is the destination
                 Bundle extras = getIntent().getExtras();
                 Integer alertThreshold = (Integer)extras.get("alertThreshold");
                 Integer responseDelay = (Integer)extras.get("responseDelay");
+
+                //set up the next screen we will go
                 Intent intent = new Intent(SelectLevel.this, PlayDrum.class);
+                //Pass information the next scree need
                 intent.putExtra("type", "Beg");
                 intent.putExtra("alertThreshold", alertThreshold);
                 intent.putExtra("responseDelay", responseDelay);
+                // Jump to the next screen
                 startActivity(intent);
             }
         });
-        // going to play drumsticks screen
+
+        // Once the user clicks this button, the app will go to play drumsticks screen with "middle" difficulty
         btnInter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //receive user defined values from UserInputValues view.
+                //Then, those values will be past to the next view, which is the destination
                 Bundle extras = getIntent().getExtras();
                 Integer alertThreshold = (Integer)extras.get("alertThreshold");
                 Integer responseDelay = (Integer)extras.get("responseDelay");
+
+                //set up the next screen we will go
                 Intent intent = new Intent(SelectLevel.this, PlayDrum.class);
+                //Pass information the next scree need
                 intent.putExtra("type", "Int");
                 intent.putExtra("alertThreshold", alertThreshold);
                 intent.putExtra("responseDelay", responseDelay);
+                // Jump to the next screen
                 startActivity(intent);
             }
         });
-        // going to play drumsticks screen
+
+        // Once the user clicks this button, the app will go to play drumsticks screen with "middle" difficulty
         btnAdv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //receive user defined values from UserInputValues view.
+                //Then, those values will be past to the next view, which is the destination
                 Bundle extras = getIntent().getExtras();
                 Integer alertThreshold = (Integer)extras.get("alertThreshold");
                 Integer responseDelay = (Integer)extras.get("responseDelay");
+
+                //set up the next screen we will go
                 Intent intent = new Intent(SelectLevel.this, PlayDrum.class);
+                //Pass information the next scree need
                 intent.putExtra("type", "Exp");
                 intent.putExtra("alertThreshold", alertThreshold);
                 intent.putExtra("responseDelay", responseDelay);
+                // Jump to the next screen
                 startActivity(intent);
             }
         });

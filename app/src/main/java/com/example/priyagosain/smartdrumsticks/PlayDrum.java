@@ -64,8 +64,7 @@ public class PlayDrum extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 /*If the drum hit is not in synchronization with transmission*/
-                if(new Date().getTime() > networkTask.rhythm.get(networkTask.signals) + networkTask.start + responseDelay){
-//                if (networkTask.signals > hits + 1) {
+                if (new Date().getTime() > networkTask.rhythm.get(networkTask.signals) + networkTask.start + responseDelay) {
                     Log.v("FAIL1", "Hit=" + hits);
                     Intent intent;
                     intent = new Intent(PlayDrum.this, DisplayDelayResult.class);
@@ -75,7 +74,6 @@ public class PlayDrum extends AppCompatActivity {
                     intent.putExtra("beats", networkTask.rhythm.size());
                     startActivity(intent);
                 }
-                /*Calculate delay for the hit*/
                 bgColor.cancel();
                 delay.add(calculateDelay(networkTask.rhythm.get(networkTask.signals - 1), networkTask.start));
                 hits++;
@@ -84,6 +82,7 @@ public class PlayDrum extends AppCompatActivity {
         });
     }
 
+    /*Calculate delay for the hit*/
     private int calculateDelay(double rhythmTime, double startTime) {
         return (int) (new Date().getTime() - rhythmTime - startTime - responseDelay);
     }
@@ -101,18 +100,10 @@ public class PlayDrum extends AppCompatActivity {
         NetworkTask(PlayDrum playDrum1) {
             double[] level;
             switch (playDrum1.type) {
-                case "Beg":
-                    level = begginer;
-                    break;
-                case "Int":
-                    level = intermidiate;
-                    break;
-                case "Exp":
-                    level = expert;
-                    break;
-                default:
-                    level = begginer;
-                    break;
+                case "Beg": level = begginer; break;
+                case "Int": level = intermidiate; break;
+                case "Exp": level = expert; break;
+                default: level = begginer; break;
             }
             for (int i = 0; i < level.length; i++) rhythm.add(level[i]);
             start = new Date().getTime();
@@ -128,20 +119,19 @@ public class PlayDrum extends AppCompatActivity {
             try {
                 signals = 0;
                 //IP & Port is hard coded to create socket client
-//            Socket socket = new Socket("134.190.187.18", 8080);
                 Socket socket = new Socket("192.168.43.10", 8080);
-            /*Client is set as transmitter*/
+                /*Client is set as transmitter*/
                 OutputStream outputStream = socket.getOutputStream();
                 PrintStream printStream = new PrintStream(outputStream);
 
-            /*Loop on the rhythm*/
+                /*Loop on the rhythm*/
                 while (signals < rhythm.size()) {
-                /*Transmit a hit when the time matches with the rhythm*/
+                    /*Transmit a hit when the time matches with the rhythm*/
                     while (new Date().getTime() - start == rhythm.get(signals)) {
-                /*Check of asynchronization or missed hits*/
+                        /*Check of asynchronization or missed hits*/
                         if (signals > hits + 1) {// if user have missed more that one signal
                             Log.v("FAIL2", "Hit=" + signals + "-" + hits);
-                    /*Terminate in case of async*/
+                            /*Terminate in case of async*/
                             return playDrums[0];//terminate the networkTask task and call onPostExecute to jump to other jobs
                         }
                         publishProgress(signals);
@@ -150,12 +140,9 @@ public class PlayDrum extends AppCompatActivity {
                         break;
                     }
                 }
-            /*Close transmission after end of transmission*/
+                /*Close transmission after end of transmission*/
                 printStream.close();
                 socket.close();
-            /*Wait for 10 secs after transmission for user to end the last beat*/
-//            while (new Date().getTime() - 10000 == rhythm.get(signals - 1)) {
-//            }
 
             } catch (UnknownHostException e) {
                 System.out.println(e.toString());

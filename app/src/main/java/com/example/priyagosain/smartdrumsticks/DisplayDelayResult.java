@@ -31,6 +31,7 @@ public class DisplayDelayResult extends AppCompatActivity {
         hits = extras.getInt("hits");
         beats = extras.getInt("beats");
 
+        //Save the max, min, and average value of delay values
         double maxDelay = Collections.max(delay);
         double minDelay = Collections.min(delay);
         double sumDelay = 0, avgDelay;
@@ -39,19 +40,12 @@ public class DisplayDelayResult extends AppCompatActivity {
         }
         avgDelay = sumDelay/delay.size();
 
+        // Display values on screen
         delayView = (TextView) findViewById(R.id.editDelay);
         delayView.setText("Delays\n");
         delayView.append("Max Delay:" + (Double.toString(maxDelay)) + "\n");
         delayView.append("Min Delay:" + (Double.toString(minDelay)) + "\n");
         delayView.append("Average Delay:" + (Double.toString(avgDelay)) + "\n");
         delayView.append("Details:\n");
-        String delayStr = new String();
-        /*Loop on the number of hits*/
-//        for (int i = 0; i < hits; i++) {
-            /*Prints the delay in log*/
-//            Log.v("X1", "Delay=" + delay.get(i));
-            /*Concatenate all delay to output on the screen*/
-//            delayView.append(Integer.toString(delay.get(i)) + "\n");
-//        }
     }
 }
