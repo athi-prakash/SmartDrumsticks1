@@ -64,7 +64,8 @@ public class PlayDrum extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 /*If the drum hit is not in synchronization with transmission*/
-                if (networkTask.signals > hits + 1) {
+                if(new Date().getTime() > networkTask.rhythm.get(networkTask.signals) + networkTask.start + responseDelay){
+//                if (networkTask.signals > hits + 1) {
                     Log.v("FAIL1", "Hit=" + hits);
                     Intent intent;
                     intent = new Intent(PlayDrum.this, DisplayDelayResult.class);
