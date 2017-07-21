@@ -13,19 +13,23 @@
     tools:context="com.example.priyagosain.smartdrumsticks.DisplayDelayResult">
 
 
-    <EditText
+    <TextView
 
         android:id="@+id/editDelay"
 
-        android:layout_width="368dp"
-        android:layout_height="495dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/Your_Brilliant_Result"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:scrollbars="vertical"
+        />
+        <!--android:inputType="textMultiLine|textImeMultiLine"-->
 
-        android:inputType="textMultiLine|textImeMultiLine"
-
-        android:lines="100"
-        android:maxLines="100"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <!--android:lines="100"-->
+        <!--android:maxLines="100"-->
+<!---->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent" />-->
 
 </android.support.constraint.ConstraintLayout>

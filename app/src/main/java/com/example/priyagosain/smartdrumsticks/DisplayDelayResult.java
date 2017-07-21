@@ -41,9 +41,10 @@ public class DisplayDelayResult extends AppCompatActivity {
 
         delayView = (TextView) findViewById(R.id.editDelay);
         delayView.setText("Delays\n");
-        delayView.append("Max Delay:" + (Double.toString(maxDelay)));
-        delayView.append("Min Delay:" + (Double.toString(minDelay)));
-        delayView.append("Averagg Delay:" + (Double.toString(avgDelay)));
+        delayView.append("Max Delay:" + (Double.toString(maxDelay)) + "\n");
+        delayView.append("Min Delay:" + (Double.toString(minDelay)) + "\n");
+        delayView.append("Averagg Delay:" + (Double.toString(avgDelay)) + "\n");
+        delayView.append("Details:\n");
         String delayStr = new String();
         /*Loop on the number of hits*/
         for (int i = 0; i < hits; i++) {
