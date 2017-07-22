@@ -46,6 +46,5 @@ public class DisplayDelayResult extends AppCompatActivity {
         delayView.append("Max Delay:" + (Double.toString(maxDelay)) + "\n");
         delayView.append("Min Delay:" + (Double.toString(minDelay)) + "\n");
         delayView.append("Average Delay:" + (Double.toString(avgDelay)) + "\n");
-        delayView.append("Details:\n");
     }
 }
